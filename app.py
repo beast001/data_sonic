@@ -9,9 +9,11 @@ nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
 from textblob import Word
 from textblob import TextBlob
-from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import joblib
+import matplotlib.pyplot as plt
+
 
 st.set_page_config(page_title = "Twitter Sentiment Analyzer", page_icon="🐤", layout = "wide")
 
@@ -25,6 +27,7 @@ auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
     #Create the authentication object
 authenticate = tweepy.OAuthHandler(consumerKey, consumerSecret) 
 twitter_api = tweepy.API(auth)
+
 
 
 
@@ -81,7 +84,7 @@ def get_tweets():
     clean_data.loc[(clean_data["polarity"].between(0,0.4,inclusive="left")),"sentiment"] = "Neutral emotion"
     clean_data.sentiment.value_counts()
 
-    tfidf = TfidfVectorizer()
+    #tfidf = TfidfVectorizer()
 
     # Fit and transform vectorizer
     #data_to_model = tfidf.fit_transform(clean_data["lemmatization"])
@@ -90,7 +93,7 @@ def get_tweets():
     #result = loaded_model.predict(data_to_model)
     
 
-    st.write(clean_data[['tweet', 'polarity']])
+    return clean_data
     #st.write(result)
 
     
@@ -135,11 +138,31 @@ with st.container():
 
             #end of form 
             if user_name != '':
-                get_tweets()
+                clean_df = get_tweets()
+                st.write(clean_df)
             else:
                 st.warning('Get some tweets')
+                clean_df = 'No tweets to analyze yet'
         with right_column:
             #right column page
-            pass
+            if isinstance(clean_df, pd.DataFrame):
+
+                # Change values of I can't tell to positive, negative or no emotion 
+                clean_df.loc[(clean_df["polarity"]>0),"sentiment"] = "Positive emotion"
+                clean_df.loc[(clean_df["polarity"]==0),"sentiment"] = "Negative emotion"
+                clean_df.loc[(clean_df["polarity"]<0),"sentiment"] = "Neutral emotion"
+
+                # Visualize the target variable
+                fig, ax = plt.subplots()
+                labela = 'Neutral','Positive','Negative'
+                explode = (0, 0.1,0)
+                ax.pie(clean_df["sentiment"].value_counts(),explode=explode, labels=labela, autopct='%1.1f%%', shadow=True, startangle=90)
+                ax.axis('equal')
+                st.pyplot(fig)
+                
+                st.write(clean_df)
+            else:
+                st.write('Waiting for model to run!')
+                
            
 
