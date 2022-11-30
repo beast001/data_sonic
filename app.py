@@ -16,12 +16,15 @@ import joblib
 st.set_page_config(page_title = "Twitter Sentiment Analyzer", page_icon="🐤", layout = "wide")
 
 #setting up twitter
+consumerKey = 'S8iEJ1hMMBit7radc5FaPZkTQ'
+consumerSecret = 'MvmrjGKV6TTbbAWpzqJtc6RuxyZEg9uwdYhdvWc5NEiucn2Gh6'
 accessToken = '1575957976090820619-vhfKRHgBKBPVS0Y7KbSmC1LqZzUNJk'
 accessTokenSecret = 'I6tU33RIVclvJxZG5H4nhDWCDzZgSrq3Dpl88b2r5mBtO'
 
-auth = tweepy.AppAuthHandler(**st.secrets["twitter"])
-#auth.set_access_token(accessToken, accessTokenSecret)
-twitter_api = tweepy.API(auth, wait_on_rate_limit = True)
+auth = tweepy.OAuthHandler(consumerKey, consumerSecret) 
+    #Create the authentication object
+authenticate = tweepy.OAuthHandler(consumerKey, consumerSecret) 
+twitter_api = tweepy.API(auth)
 
 
 
