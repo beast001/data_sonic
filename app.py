@@ -13,6 +13,10 @@ from textblob import TextBlob
 import numpy as np
 import joblib
 import matplotlib.pyplot as plt
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('stopwords')
+nltk.download('omw-1.4')
 
 
 st.set_page_config(page_title = "Twitter Sentiment Analyzer", page_icon="🐤", layout = "wide")
