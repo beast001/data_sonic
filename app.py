@@ -17,6 +17,10 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(page_title = "Twitter Sentiment Analyzer", page_icon="🐤", layout = "wide")
 
+
+
+
+
 #setting up twitter
 consumerKey = 'S8iEJ1hMMBit7radc5FaPZkTQ'
 consumerSecret = 'MvmrjGKV6TTbbAWpzqJtc6RuxyZEg9uwdYhdvWc5NEiucn2Gh6'
@@ -116,6 +120,8 @@ with st.container():
         st.image("logoOfficial.png", width=50)
     with b:
         st.title("Twitter Sentiment Analyzer")
+    url = "https://beast001-twitter-sentiment-analyzer-streamlit-app-pubhvw.streamlit.app/"
+    st.write("Interested in analysing more? [link](%s)" % url)
 
     st.write("Enter any topic or trending tags to analys the sentiment of the users")
 
@@ -139,7 +145,7 @@ with st.container():
             #end of form 
             if user_name != '':
                 clean_df = get_tweets()
-                st.write(clean_df)
+                st.write(clean_df['tweet'])
             else:
                 st.warning('Get some tweets')
                 clean_df = 'No tweets to analyze yet'
@@ -160,7 +166,6 @@ with st.container():
                 ax.axis('equal')
                 st.pyplot(fig)
                 
-                st.write(clean_df)
             else:
                 st.write('Waiting for model to run!')
                 

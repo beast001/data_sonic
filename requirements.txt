@@ -5,3 +5,4 @@ htbuilder>=0.3.0<1.0.0
 tweepy>=3.10.0<3.11
 click==8
 scikit_learn==1.1.0.
+matplotlib==3.3.4
