@@ -123,7 +123,7 @@ with st.container():
         st.text("")
         st.image("logoOfficial.png", width=50)
     with b:
-        st.title("Twitter Sentiment Analyzer")
+        st.title("Twitter Sentiment Analyzer by Data Sonics")
     url = "https://beast001-twitter-sentiment-analyzer-streamlit-app-pubhvw.streamlit.app/"
     st.write("Interested in analysing more? [link](%s)" % url)
 
@@ -162,6 +162,8 @@ with st.container():
                 clean_df.loc[(clean_df["polarity"]==0),"sentiment"] = "Negative emotion"
                 clean_df.loc[(clean_df["polarity"]<0),"sentiment"] = "Neutral emotion"
 
+                st.title('Tweet Polarity')
+
                 # Visualize the target variable
                 fig, ax = plt.subplots()
                 labela = 'Neutral','Positive','Negative'
@@ -169,9 +171,29 @@ with st.container():
                 ax.pie(clean_df["sentiment"].value_counts(),explode=explode, labels=labela, autopct='%1.1f%%', shadow=True, startangle=90)
                 ax.axis('equal')
                 st.pyplot(fig)
+
+                filename = 'finalized_model.sav'
+                loaded_model = joblib.load(filename)
+                result = loaded_model.predict(clean_df['tweet'])
+
+                pred_result = pd.DataFrame(result, columns=['Prediction'])
+
+                st.title('Predictor results')
+
+                fig1, ax1 = plt.subplots()
+                labela = 'Neutral','Positive','Negative'
+                explode = (0, 0.1,0)
+                ax1.pie(pred_result.value_counts(),explode=explode, labels=labela, autopct='%1.1f%%', shadow=True, startangle=90)
+                ax1.axis('equal')
+                st.pyplot(fig1)
                 
             else:
                 st.write('Waiting for model to run!')
+
+
+st.subheader(' ------------------------Created By :  Data Sonic Inc ---------------------- :sunglasses:')
+linkedin = "https://www.linkedin.com/in/africandatascientist/"
+st.write("Check us out today [link](%s)" % linkedin)
                 
            
 
