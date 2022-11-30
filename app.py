@@ -84,14 +84,14 @@ def get_tweets():
     tfidf = TfidfVectorizer()
 
     # Fit and transform vectorizer
-    data_to_model = tfidf.fit_transform(clean_data["lemmatization"])
-    filename = 'finalized_model.sav'
-    loaded_model = joblib.load(filename)
-    result = loaded_model.predict(data_to_model)
+    #data_to_model = tfidf.fit_transform(clean_data["lemmatization"])
+    #filename = 'finalized_model.sav'
+    #loaded_model = joblib.load(filename)
+    #result = loaded_model.predict(data_to_model)
     
 
     st.write(clean_data[['tweet', 'polarity']])
-    st.write(result)
+    #st.write(result)
 
     
 
