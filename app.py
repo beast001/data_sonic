@@ -172,20 +172,20 @@ with st.container():
                 ax.axis('equal')
                 st.pyplot(fig)
 
-                filename = 'finalized_model.sav'
+                filename = 'finalized_model deploy.sav'
                 loaded_model = joblib.load(filename)
                 result = loaded_model.predict(clean_df['tweet'])
 
                 pred_result = pd.DataFrame(result, columns=['Prediction'])
 
-                st.title('Predictor results')
+                #st.title('Predictor results')
 
-                fig1, ax1 = plt.subplots()
-                labela = 'Neutral','Positive','Negative'
-                explode = (0, 0.1,0)
-                ax1.pie(pred_result.value_counts(),explode=explode, labels=labela, autopct='%1.1f%%', shadow=True, startangle=90)
-                ax1.axis('equal')
-                st.pyplot(fig1)
+                #fig1, ax1 = plt.subplots()
+                #labela = 'Neutral','Positive','Negative'
+                #explode = (0, 0.1,0)
+                #ax1.pie(pred_result.value_counts(),explode=explode, labels=labela, autopct='%1.1f%%', shadow=True, startangle=90)
+                #ax1.axis('equal')
+                #st.pyplot(fig1)
                 
             else:
                 st.write('Waiting for model to run!')
