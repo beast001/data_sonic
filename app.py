@@ -162,7 +162,7 @@ with st.container():
                 clean_df.loc[(clean_df["polarity"]==0),"sentiment"] = "Negative emotion"
                 clean_df.loc[(clean_df["polarity"]<0),"sentiment"] = "Neutral emotion"
 
-                st.title('Tweet Polarity')
+                st.title('Tweet Sentiment')
 
                 # Visualize the target variable
                 fig, ax = plt.subplots()
